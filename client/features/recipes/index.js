@@ -61,14 +61,14 @@ const RecipesComponent = ({ onGetRecipes, recipes, profile }) => {
                 }
               >
                 <Content padder>
-                  <Recipe recipe={recipe} day={weekday[index]} />
+                  <Recipe recipe={recipe} />
                 </Content>
               </ScrollView>
             </Tab>
           ))
         ) : (
           <Tab
-            heading="Test"
+            heading=""
             tabStyle={styles.tab}
             activeTabStyle={styles.activeTab}
             activeTextStyle={styles.tabActiveTextStyle}

@@ -1,85 +1,89 @@
 import React from "react";
 import { connect } from "react-redux";
-import { StyleSheet, Image, Linking } from "react-native";
-import { Text, Left, CardItem, Icon, Button, Card } from "native-base";
+import { StyleSheet, Image } from "react-native";
+import { Text, CardItem, Card, View } from "native-base";
 
-const RecipeComponent = ({ recipe, day }) => {
+const RecipeComponent = ({ recipe }) => {
   return (
-    <Card transparent>
-      <CardItem cardBody style={styles.recipeImageContainer}>
-        <Image
-          source={{
-            uri: recipe.imageUrl
-          }}
-          style={styles.recipeImage}
-        />
+    <Card style={styles.recipeContainer} noShadow transparent>
+      <CardItem header style={styles.recipeImageCardContainer}>
+        <View style={styles.recipeImageViewContainer}>
+          <Image
+            source={{
+              uri: recipe.imageUrl
+            }}
+            style={styles.recipeImage}
+          />
+        </View>
       </CardItem>
       <CardItem style={styles.recipeNameContainer}>
         <Text style={styles.recipeName}>{recipe.name}</Text>
       </CardItem>
-      <CardItem style={styles.recipeDescriptionContainer}>
+      <CardItem footer style={styles.recipeDescriptionContainer}>
         <Text style={styles.recipeDescription}>
           Preparation: 45min {"\n"}Servings: 2 people
         </Text>
       </CardItem>
-      {/* <CardItem>
-        <Left>
-          <Button transparent>
-            <Icon type="Entypo" active name="shuffle" />
-            <Text>Change</Text>
-          </Button>
-          <Button transparent>
-            <Icon type="AntDesign" active name="staro" />
-            <Text>Favorite</Text>
-          </Button>
-          <Button transparent onPress={() => Linking.openURL(recipe.url)}>
-            <Icon type="Feather" active name="external-link" />
-            <Text>View</Text>
-          </Button>
-        </Left>
-      </CardItem> */}
     </Card>
   );
 };
 
 const styles = StyleSheet.create({
+  recipeContainer: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 6.68,
+    borderRadius: 15,
+    marginLeft: 10,
+    marginRight: 10
+  },
   recipeDay: {
     fontSize: 30,
     color: "#bcbcbc"
   },
-  recipeImageContainer: {
-    borderRadius: 15,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    marginBottom: 20,
-    marginLeft: 12,
-    marginRight: 12
+  recipeImageCardContainer: {
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    paddingTop: 0,
+    paddingRight: 0,
+    paddingBottom: 0,
+    paddingLeft: 0
+  },
+  recipeImageViewContainer: {
+    overflow: "hidden",
+    height: 330,
+    flex: 1,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15
   },
   recipeImage: {
-    height: 350,
+    height: 330,
     flex: 1,
-    borderRadius: 15
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15
   },
   recipeNameContainer: {
-    marginBottom: 0,
-    paddingBottom: 0
+    margin: 0
   },
   recipeName: {
-    color: "#000000",
-    fontWeight: "bold",
-    fontSize: 20
+    color: "#4f4f4f",
+    fontSize: 20,
+    marginTop: 10,
+    textTransform: "capitalize"
   },
   recipeDescriptionContainer: {
     paddingTop: 0,
-    marginTop: 0
+    marginTop: 0,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15
   },
   recipeDescription: {
-    color: "#bcbcbc"
+    color: "#bcbcbc",
+    marginBottom: 10
   }
 });
 
