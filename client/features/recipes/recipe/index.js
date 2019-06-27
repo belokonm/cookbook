@@ -1,7 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { StyleSheet, Image } from "react-native";
-import { Text, CardItem, Card, View } from "native-base";
+import { Text, CardItem, Card, View, Icon, Button } from "native-base";
+
+import Colors from "../../../constants/Colors";
 
 const RecipeComponent = ({ recipe }) => {
   return (
@@ -18,6 +20,9 @@ const RecipeComponent = ({ recipe }) => {
       </CardItem>
       <CardItem style={styles.recipeNameContainer}>
         <Text style={styles.recipeName}>{recipe.name}</Text>
+        <Button transparent>
+          <Icon name="hearto" type="AntDesign" style={styles.favoriteIcon} />
+        </Button>
       </CardItem>
       <CardItem footer style={styles.recipeDescriptionContainer}>
         <Text style={styles.recipeDescription}>
@@ -73,7 +78,12 @@ const styles = StyleSheet.create({
     color: "#4f4f4f",
     fontSize: 20,
     marginTop: 10,
-    textTransform: "capitalize"
+    textTransform: "capitalize",
+    flex: 1
+  },
+  favoriteIcon: {
+    color: Colors.red,
+    marginTop: 10
   },
   recipeDescriptionContainer: {
     paddingTop: 0,

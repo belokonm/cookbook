@@ -10,7 +10,9 @@ import {
   Right,
   Title,
   ScrollableTab,
-  Content
+  Content,
+  Icon,
+  Button
 } from "native-base";
 
 import { GET_RECIPES_REQUEST } from "./actions.js";
@@ -39,7 +41,11 @@ const RecipesComponent = ({ onGetRecipes, recipes, profile }) => {
         <Left>
           <Title style={styles.headerTitle}>Recipes</Title>
         </Left>
-        <Right />
+        <Right>
+          <Button transparent>
+            <Icon name="reload1" type="AntDesign" style={styles.headerAction} />
+          </Button>
+        </Right>
       </Header>
       <Tabs
         renderTabBar={() => <ScrollableTab style={styles.tabs} />}
@@ -90,12 +96,17 @@ const styles = StyleSheet.create({
     height: 80,
     borderBottomWidth: 0,
     paddingLeft: 20,
+    paddingRight: 20,
     backgroundColor: "#fff",
     marginTop: 30
   },
   headerTitle: {
     fontSize: 35,
     color: "#303030"
+  },
+  headerAction: {
+    color: Colors.red,
+    fontSize: 28
   },
   tabBarUnderline: {
     borderWidth: 0,
