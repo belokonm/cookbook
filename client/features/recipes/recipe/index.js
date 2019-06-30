@@ -4,8 +4,19 @@ import { StyleSheet, Image } from "react-native";
 import { Text, CardItem, Card, View, Icon, Button } from "native-base";
 
 import Colors from "../../../constants/Colors";
+import { UPDATE_PROFILE_FAVORITES_REQUEST } from "../../profile/actions";
 
-const RecipeComponent = ({ recipe }) => {
+const RecipeComponent = ({ recipe, profile, onUpdateProfileFavorites }) => {
+  const onToggleFavoriteClicked = () => {
+    if (!profile.favorites) {
+      profile.favorites = [];
+    }
+
+    profile.favorites.push(recipe._id);
+
+    onUpdateProfileFavorites(profile);
+  };
+
   return (
     <Card style={styles.recipeContainer} noShadow transparent>
       <CardItem header style={styles.recipeImageCardContainer}>
@@ -20,7 +31,7 @@ const RecipeComponent = ({ recipe }) => {
       </CardItem>
       <CardItem style={styles.recipeNameContainer}>
         <Text style={styles.recipeName}>{recipe.name}</Text>
-        <Button transparent>
+        <Button transparent onPress={onToggleFavoriteClicked}>
           <Icon name="hearto" type="AntDesign" style={styles.favoriteIcon} />
         </Button>
       </CardItem>
@@ -98,11 +109,19 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    profile: state.profile
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    onUpdateProfileFavorites: profile =>
+      dispatch({
+        type: UPDATE_PROFILE_FAVORITES_REQUEST,
+        payload: { profile }
+      })
+  };
 };
 
 export const Recipe = connect(

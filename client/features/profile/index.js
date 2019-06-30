@@ -3,87 +3,67 @@ import { connect } from "react-redux";
 import { StyleSheet } from "react-native";
 import {
   Header,
-  Card,
-  CardItem,
   Text,
-  Icon,
-  Right,
-  Body,
   Title,
   Container,
   Content,
   Left,
-  Footer,
-  FooterTab
+  List,
+  ListItem
 } from "native-base";
 import firebase from "firebase";
 
-import { StyledButton } from "../../components/StyledButton";
-import { StyledText } from "../../components/StyledText";
 import { SIGN_OUT_REQUEST } from "./actions";
 
 const ProfileComponent = ({ onRequestSignOut }) => {
   return (
     <Container>
-      <Header>
-        <Left />
-        <Body>
-          <Title>Profile</Title>
-        </Body>
-        <Right />
+      <Header style={styles.header} hasTabs>
+        <Left>
+          <Title style={styles.headerTitle}>Profile</Title>
+        </Left>
       </Header>
       <Content>
-        <Card>
-          <CardItem header>
+        <List>
+          <ListItem itemHeader first>
             <Text>Account</Text>
-          </CardItem>
-          <CardItem>
-            <Icon active name="idcard" type="AntDesign" />
+          </ListItem>
+          <ListItem>
             <Text>Information</Text>
-            <Right>
-              <Icon name="arrow-forward" />
-            </Right>
-          </CardItem>
-          <CardItem>
-            <Icon active name="lock" type="AntDesign" />
+          </ListItem>
+          <ListItem last>
             <Text>Security</Text>
-            <Right>
-              <Icon name="arrow-forward" />
-            </Right>
-          </CardItem>
-          <CardItem header>
+          </ListItem>
+          <ListItem itemHeader>
             <Text>Recipes</Text>
-          </CardItem>
-          <CardItem>
-            <Icon active name="filter" type="AntDesign" />
+          </ListItem>
+          <ListItem>
             <Text>Preferences</Text>
-            <Right>
-              <Icon name="arrow-forward" />
-            </Right>
-          </CardItem>
-          <CardItem>
-            <Icon active name="staro" type="AntDesign" />
+          </ListItem>
+          <ListItem>
             <Text>Favorites</Text>
-            <Right>
-              <Icon name="arrow-forward" />
-            </Right>
-          </CardItem>
-        </Card>
+          </ListItem>
+          <ListItem onPress={onRequestSignOut}>
+            <Text>Sign Out</Text>
+          </ListItem>
+        </List>
       </Content>
-      <Footer>
-        <FooterTab>
-          <StyledButton block onPress={() => onRequestSignOut()} danger>
-            <StyledText style={styles.signOutBtnText}>Sign Out</StyledText>
-          </StyledButton>
-        </FooterTab>
-      </Footer>
     </Container>
   );
 };
 
 const styles = StyleSheet.create({
-  signOutBtnText: {
-    color: "white"
+  header: {
+    height: 80,
+    borderBottomWidth: 0,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: "#fff",
+    marginTop: 30
+  },
+  headerTitle: {
+    fontSize: 35,
+    color: "#303030"
   }
 });
 

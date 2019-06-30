@@ -6,7 +6,7 @@ import { watcherSignUpSaga } from "../features/authentication/sign-up/sagas";
 import { watcherGetRecipesSaga } from "../features/recipes/sagas";
 import { watcherGenerateRecipesSaga } from "../features/recipes/sagas";
 import { watcherGetProfileSaga } from "../features/profile/sagas";
-import { watcherUpdateProfileSaga } from "../features/profile/sagas";
+import { watcherUpdateProfilePreferencesSaga } from "../features/profile/preferences/sagas";
 
 export default function* root() {
   yield all([
@@ -16,6 +16,6 @@ export default function* root() {
     fork(watcherGetRecipesSaga),
     fork(watcherGenerateRecipesSaga),
     fork(watcherGetProfileSaga),
-    fork(watcherUpdateProfileSaga)
+    fork(watcherUpdateProfilePreferencesSaga)
   ]);
 }

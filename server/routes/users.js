@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/preferences", async (req, res) => {
   try {
     // Get the user
     const { user } = req;
@@ -24,7 +24,31 @@ router.put("/", async (req, res) => {
         uid: user.uid
       },
       {
-        $set: { preferences: req.body.preferences, recipes: req.body.recipes }
+        $set: { preferences: req.body }
+      }
+    );
+
+    const updatedUser = await users().findOne({
+      uid: user.uid
+    });
+
+    return res.status(200).send(updatedUser);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+});
+
+router.put("/recipes", async (req, res) => {
+  try {
+    // Get the user
+    const { user } = req;
+
+    await users().updateOne(
+      {
+        uid: user.uid
+      },
+      {
+        $set: { recipes: req.body }
       }
     );
 

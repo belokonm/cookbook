@@ -9,9 +9,9 @@ import {
 const initialState = {
   error: null,
   success: null,
-  email: "",
-  password: "",
-  confirmPassword: ""
+  email: "usertest1@gmail.com",
+  password: "abc123",
+  confirmPassword: "abc123"
 };
 
 export const signUp = (state = initialState, action) => {

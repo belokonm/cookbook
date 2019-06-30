@@ -5,12 +5,11 @@ import { Text, Container, Content, H1, Icon } from "native-base";
 
 import { StyledButton } from "../../../../components/StyledButton";
 import { Preferences } from "../index";
-import { UPDATE_PROFILE_REQUEST } from "../../actions";
+import { UPDATE_PROFILE_PREFERENCES_REQUEST } from "../actions";
 
 const ModalPreferencesComponent = ({
   modalPreferences,
-  onUpdateProfile,
-  profile,
+  onUpdateProfilePreferences,
   preferences
 }) => {
   return (
@@ -33,7 +32,7 @@ const ModalPreferencesComponent = ({
           <StyledButton
             transparent
             large
-            onPress={() => onUpdateProfile({ ...profile, preferences })}
+            onPress={() => onUpdateProfilePreferences(preferences)}
             iconRight
           >
             <Text>Continue</Text>
@@ -58,17 +57,16 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     modalPreferences: state.modalPreferences,
-    profile: state.profile,
     preferences: state.preferences
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onUpdateProfile: profile =>
+    onUpdateProfilePreferences: preferences =>
       dispatch({
-        type: UPDATE_PROFILE_REQUEST,
-        payload: { profile }
+        type: UPDATE_PROFILE_PREFERENCES_REQUEST,
+        payload: { preferences }
       })
   };
 };
