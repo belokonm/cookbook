@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { StyleSheet, ScrollView, RefreshControl } from "react-native";
+import { StyleSheet, ScrollView, RefreshControl, Alert } from "react-native";
 import {
   Header,
   Tab,
@@ -34,6 +34,21 @@ const RecipesComponent = ({
   recipes,
   profile
 }) => {
+  const onGenerateRecipesPressed = () => {
+    Alert.alert(
+      "Attention",
+      "If you proceed, you will lose your current recipes. Do you wish to continue?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        { text: "Continue", onPress: onGenerateRecipes }
+      ],
+      { cancelable: false }
+    );
+  };
+
   useEffect(() => {
     if (profile.preferences) {
       if (profile.recipes && profile.recipes.length > 0) {
@@ -51,7 +66,7 @@ const RecipesComponent = ({
           <Title style={styles.headerTitle}>Recipes</Title>
         </Left>
         <Right>
-          <Button transparent onPress={onGenerateRecipes}>
+          <Button transparent onPress={onGenerateRecipesPressed}>
             <Icon name="reload1" type="AntDesign" style={styles.headerAction} />
           </Button>
         </Right>

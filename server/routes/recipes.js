@@ -8,7 +8,11 @@ router.get("/", async (req, res) => {
     // Get the user
     const { user } = req;
 
-    return status(200).send(user.recipes[user.recipes.length - 1]);
+    const recipes = await getRecipesFromIds(
+      user.recipes[user.recipes.length - 1].recipeIds
+    );
+
+    return res.status(200).send(recipes);
   } catch (error) {
     return res.status(500).send(error.message);
   }
