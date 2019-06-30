@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { ObjectID } from "mongodb";
+
 import { users } from "../helpers/db-helper";
 
 var router = Router();
@@ -64,17 +66,33 @@ router.put("/recipes", async (req, res) => {
 
 router.put("/favorites", async (req, res) => {
   try {
-    // Get the user
+    // Get the user & the favorite to add.
     const { user } = req;
-
     const { favorite } = req.body;
+
+    // Create a MongoDB object id with the favorite.
+    const recipeId = new ObjectID(favorite);
+
+    user.favorites = user.favorites || [];
+
+    // Check if the favorite already exists.
+    const existingFavoriteIndex = user.favorites.findIndex(x =>
+      x.equals(recipeId)
+    );
+
+    // If it already exists, we remove it from the array, otherwise we add it.
+    if (existingFavoriteIndex >= 0) {
+      user.favorites.splice(existingFavoriteIndex, 1);
+    } else {
+      user.favorites.push(recipeId);
+    }
 
     await users().updateOne(
       {
         uid: user.uid
       },
       {
-        $set: { favorites: req.body }
+        $set: { favorites: user.favorites }
       }
     );
 

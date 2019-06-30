@@ -8,8 +8,8 @@ import {
 const initialState = {
   error: null,
   success: null,
-  email: "",
-  password: ""
+  email: "usertest1@gmail.com",
+  password: "abc123"
 };
 
 export const signIn = (state = initialState, action) => {
