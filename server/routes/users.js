@@ -62,4 +62,30 @@ router.put("/recipes", async (req, res) => {
   }
 });
 
+router.put("/favorites", async (req, res) => {
+  try {
+    // Get the user
+    const { user } = req;
+
+    const { favorite } = req.body;
+
+    await users().updateOne(
+      {
+        uid: user.uid
+      },
+      {
+        $set: { favorites: req.body }
+      }
+    );
+
+    const updatedUser = await users().findOne({
+      uid: user.uid
+    });
+
+    return res.status(200).send(updatedUser);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+});
+
 export default router;

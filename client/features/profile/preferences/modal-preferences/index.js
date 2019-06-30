@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { StyleSheet, Modal } from "react-native";
 import { Text, Container, Content, H1, Icon } from "native-base";

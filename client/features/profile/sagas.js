@@ -1,4 +1,4 @@
-import { takeLatest, call, put as sagaPut } from "redux-saga/effects";
+import { takeLatest, call, put } from "redux-saga/effects";
 
 import {
   GET_PROFILE_REQUEST,
@@ -17,9 +17,9 @@ function* workerGetProfileSaga() {
     yield call(() => startLoading());
     const { data } = yield call(() => get("users"));
 
-    yield sagaPut({ type: GET_PROFILE_SUCCESS, payload: { profile: data } });
+    yield put({ type: GET_PROFILE_SUCCESS, payload: { profile: data } });
   } catch (error) {
-    yield sagaPut({
+    yield put({
       type: GET_PROFILE_FAILURE,
       payload: { error: error.message }
     });
@@ -29,12 +29,12 @@ function* workerGetProfileSaga() {
 }
 
 function* startLoading() {
-  yield sagaPut({
+  yield put({
     type: START_LOADING
   });
 }
 function* stopLoading() {
-  yield sagaPut({
+  yield put({
     type: STOP_LOADING
   });
 }
