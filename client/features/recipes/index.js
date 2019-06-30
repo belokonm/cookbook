@@ -16,6 +16,7 @@ import {
 } from "native-base";
 
 import { GET_RECIPES_REQUEST, GENERATE_RECIPES_REQUEST } from "./actions.js";
+import { GET_PROFILE_REQUEST } from "../profile/actions";
 import { Recipe } from "./recipe/index.js";
 import Colors from "../../constants/Colors";
 
@@ -31,6 +32,7 @@ weekday[6] = "Saturday";
 const RecipesComponent = ({
   onGetRecipes,
   onGenerateRecipes,
+  onGetProfile,
   recipes,
   profile
 }) => {
@@ -48,6 +50,10 @@ const RecipesComponent = ({
       { cancelable: false }
     );
   };
+
+  useEffect(() => {
+    onGetProfile();
+  }, []);
 
   useEffect(() => {
     if (profile.preferences) {
@@ -161,7 +167,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onGetRecipes: () => dispatch({ type: GET_RECIPES_REQUEST }),
-    onGenerateRecipes: () => dispatch({ type: GENERATE_RECIPES_REQUEST })
+    onGenerateRecipes: () => dispatch({ type: GENERATE_RECIPES_REQUEST }),
+    onGetProfile: () => dispatch({ type: GET_PROFILE_REQUEST })
   };
 };
 

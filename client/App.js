@@ -9,7 +9,7 @@ import AppNavigator from "./navigation/AppNavigator";
 import MainTabNavigator from "./navigation/MainTabNavigator";
 import ApiKeys from "./constants/ApiKeys";
 import { Loading } from "./components/loading";
-import { setAccessToken, removeAccessToken } from "./helpers/oauth-helper";
+import { removeAccessToken } from "./helpers/oauth-helper";
 import { configureStore } from "./store";
 import { ModalPreferences } from "./features/profile/preferences/modal-preferences";
 

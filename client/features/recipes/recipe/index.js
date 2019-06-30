@@ -7,6 +7,9 @@ import Colors from "../../../constants/Colors";
 import { UPDATE_PROFILE_FAVORITE_REQUEST } from "../../profile/favorites/actions";
 
 const RecipeComponent = ({ profile, onUpdateProfileFavorite, recipe }) => {
+  const isFavorite = () =>
+    profile.favorites && profile.favorites.some(x => x === recipe._id);
+
   return (
     <Card style={styles.recipeContainer} noShadow transparent>
       <CardItem header style={styles.recipeImageCardContainer}>
@@ -22,7 +25,11 @@ const RecipeComponent = ({ profile, onUpdateProfileFavorite, recipe }) => {
       <CardItem style={styles.recipeNameContainer}>
         <Text style={styles.recipeName}>{recipe.name}</Text>
         <Button transparent onPress={() => onUpdateProfileFavorite(recipe._id)}>
-          <Icon name="hearto" type="AntDesign" style={styles.favoriteIcon} />
+          <Icon
+            name={isFavorite() ? "heart" : "hearto"}
+            type="AntDesign"
+            style={styles.favoriteIcon}
+          />
         </Button>
       </CardItem>
       <CardItem footer style={styles.recipeDescriptionContainer}>

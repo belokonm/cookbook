@@ -1,5 +1,6 @@
 import { GET_PROFILE_SUCCESS, UPDATE_PROFILE_SUCCESS } from "./actions";
 import { UPDATE_PROFILE_PREFERENCES_SUCCESS } from "./preferences/actions";
+import { UPDATE_PROFILE_FAVORITE_SUCCESS } from "./favorites/actions";
 
 const initialState = {};
 
@@ -12,6 +13,7 @@ export const profile = (state = initialState, action) => {
       };
     case UPDATE_PROFILE_SUCCESS:
     case UPDATE_PROFILE_PREFERENCES_SUCCESS:
+    case UPDATE_PROFILE_FAVORITE_SUCCESS:
       return {
         ...state,
         ...action.payload.profile
