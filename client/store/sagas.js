@@ -4,6 +4,7 @@ import { watcherForgotPasswordSaga } from "../features/authentication/forgot-pas
 import { watcherSignInSaga } from "../features/authentication/sign-in/sagas";
 import { watcherSignUpSaga } from "../features/authentication/sign-up/sagas";
 import { watcherGetRecipesSaga } from "../features/recipes/sagas";
+import { watcherGenerateRecipesSaga } from "../features/recipes/sagas";
 import { watcherGetProfileSaga } from "../features/profile/sagas";
 import { watcherUpdateProfileSaga } from "../features/profile/sagas";
 
@@ -13,6 +14,7 @@ export default function* root() {
     fork(watcherSignInSaga),
     fork(watcherSignUpSaga),
     fork(watcherGetRecipesSaga),
+    fork(watcherGenerateRecipesSaga),
     fork(watcherGetProfileSaga),
     fork(watcherUpdateProfileSaga)
   ]);

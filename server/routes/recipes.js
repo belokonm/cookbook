@@ -8,22 +8,30 @@ router.get("/", async (req, res) => {
     // Get the user
     const { user } = req;
 
-    // Create an empty property if the user doesn't have any recipes.
-    if (!user.recipes) {
-      user.recipes = {};
-    }
+    return status(200).send(user.recipes[user.recipes.length - 1]);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+});
 
-    // Return the user recipes if we've already generated them for this week.
-    const lastSunday = getLastSunday();
-    if (user.recipes.hasOwnProperty(lastSunday)) {
-      return res
-        .status(200)
-        .send(await getRecipesFromIds(user.recipes[lastSunday]));
+router.get("/generate", async (req, res) => {
+  try {
+    // Get the user
+    const { user } = req;
+
+    // Create an empty array if the user doesn't have any recipes.
+    if (!user.recipes) {
+      user.recipes = [];
     }
 
     // Generate 7 recipes and add them to the user.
     const generatedRecipes = await generateRecipes();
-    user.recipes[lastSunday] = generatedRecipes.map(x => x._id);
+    const recipeIds = generatedRecipes.map(x => x._id);
+    user.recipes.push({
+      generatedDate: getCurrentDate(),
+      recipeIds
+    });
+
     await users().updateOne(
       {
         uid: user.uid
@@ -33,7 +41,9 @@ router.get("/", async (req, res) => {
       }
     );
 
-    return res.status(200).send(generatedRecipes);
+    const recipes = await getRecipesFromIds(recipeIds);
+
+    return res.status(200).send(recipes);
   } catch (error) {
     return res.status(500).send(error.message);
   }
@@ -45,18 +55,8 @@ const generateRecipes = async () => {
     .toArray();
 };
 
-const getLastSunday = () => {
-  const today = new Date();
-  const day = today.getDay();
-
-  let prevSunday;
-  if (today.getDay() == 0) {
-    prevSunday = new Date().setDate(today.getDate() - 7);
-  } else {
-    prevSunday = new Date().setDate(today.getDate() - day);
-  }
-
-  return new Date(prevSunday).toISOString().split("T")[0];
+const getCurrentDate = () => {
+  return new Date().toISOString();
 };
 
 const getRecipesFromIds = async recipesIds => {
@@ -66,6 +66,7 @@ const getRecipesFromIds = async recipesIds => {
         $in: recipesIds
       }
     })
+    .sort({ _id: -1 })
     .toArray();
 };
 

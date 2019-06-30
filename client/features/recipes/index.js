@@ -15,7 +15,7 @@ import {
   Button
 } from "native-base";
 
-import { GET_RECIPES_REQUEST } from "./actions.js";
+import { GET_RECIPES_REQUEST, GENERATE_RECIPES_REQUEST } from "./actions.js";
 import { Recipe } from "./recipe/index.js";
 import Colors from "../../constants/Colors";
 
@@ -28,10 +28,19 @@ weekday[4] = "Thursday";
 weekday[5] = "Friday";
 weekday[6] = "Saturday";
 
-const RecipesComponent = ({ onGetRecipes, recipes, profile }) => {
+const RecipesComponent = ({
+  onGetRecipes,
+  onGenerateRecipes,
+  recipes,
+  profile
+}) => {
   useEffect(() => {
     if (profile.preferences) {
-      onGetRecipes();
+      if (profile.recipes && profile.recipes.length > 0) {
+        onGetRecipes();
+      } else {
+        onGenerateRecipes();
+      }
     }
   }, [profile]);
 
@@ -42,7 +51,7 @@ const RecipesComponent = ({ onGetRecipes, recipes, profile }) => {
           <Title style={styles.headerTitle}>Recipes</Title>
         </Left>
         <Right>
-          <Button transparent>
+          <Button transparent onPress={onGenerateRecipes}>
             <Icon name="reload1" type="AntDesign" style={styles.headerAction} />
           </Button>
         </Right>
@@ -136,7 +145,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetRecipes: () => dispatch({ type: GET_RECIPES_REQUEST })
+    onGetRecipes: () => dispatch({ type: GET_RECIPES_REQUEST }),
+    onGenerateRecipes: () => dispatch({ type: GENERATE_RECIPES_REQUEST })
   };
 };
 
