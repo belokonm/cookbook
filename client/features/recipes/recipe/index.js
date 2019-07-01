@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, Linking } from "react-native";
 import { Text, CardItem, Card, View, Icon, Button } from "native-base";
 
 import Colors from "../../../constants/Colors";
@@ -9,10 +9,22 @@ import { UPDATE_PROFILE_FAVORITE_REQUEST } from "../../profile/favorites/actions
 const RecipeComponent = ({ profile, onUpdateProfileFavorite, recipe }) => {
   const isFavorite = () =>
     profile.favorites && profile.favorites.some(x => x === recipe._id);
+  const [onStartLocationX, setOnStartLocationX] = useState(0);
 
   return (
     <Card style={styles.recipeContainer} noShadow transparent>
-      <CardItem header style={styles.recipeImageCardContainer}>
+      <CardItem
+        header
+        style={styles.recipeImageCardContainer}
+        onTouchStart={e => {
+          setOnStartLocationX(e.nativeEvent.locationX);
+        }}
+        onTouchEnd={e => {
+          if (Math.abs(onStartLocationX - e.nativeEvent.locationX) < 3) {
+            Linking.openURL(recipe.url);
+          }
+        }}
+      >
         <View style={styles.recipeImageViewContainer}>
           <Image
             source={{

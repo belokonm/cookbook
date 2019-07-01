@@ -1,9 +1,9 @@
 {
   "expoServerNgrokUrl": "https://6x-hzc.ericblanc.client.exp.direct",
   "packagerNgrokUrl": "https://packager.6x-hzc.ericblanc.client.exp.direct",
-  "ngrokPid": 1708,
+  "ngrokPid": 35208,
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 28424
+  "packagerPid": 37124
 }
