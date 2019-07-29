@@ -3,7 +3,7 @@
   "packagerNgrokUrl": "https://packager.6x-hzc.ericblanc.client.exp.direct",
   "ngrokPid": 35208,
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 37124
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null
 }

@@ -9,11 +9,16 @@ import {
   Content,
   Left,
   List,
-  ListItem
+  ListItem,
+  Right,
+  Body,
+  Button,
+  Icon
 } from "native-base";
 import firebase from "firebase";
 
 import { SIGN_OUT_REQUEST } from "./actions";
+import Colors from "../../constants/Colors";
 
 const ProfileComponent = ({ onRequestSignOut }) => {
   return (
@@ -28,20 +33,96 @@ const ProfileComponent = ({ onRequestSignOut }) => {
           <ListItem itemHeader first>
             <Text>Account</Text>
           </ListItem>
-          <ListItem>
-            <Text>Information</Text>
+          <ListItem icon>
+            <Left>
+              <Button
+                style={{
+                  backgroundColor: Colors.yellow,
+                  borderRadius: "50%",
+                  width: 20,
+                  height: 20
+                }}
+              >
+                <Icon
+                  active
+                  name="info"
+                  type="AntDesign"
+                  style={{ color: "white" }}
+                />
+              </Button>
+            </Left>
+            <Body>
+              <Text>Information</Text>
+            </Body>
+            <Right>
+              <Icon active name="arrow-forward" />
+            </Right>
           </ListItem>
-          <ListItem last>
-            <Text>Security</Text>
+          <ListItem icon last>
+            <Left>
+              <Button
+                style={{
+                  backgroundColor: Colors.darkBlue,
+                  borderRadius: "50%"
+                }}
+              >
+                <Icon
+                  active
+                  name="lock1"
+                  type="AntDesign"
+                  style={{ color: "white" }}
+                />
+              </Button>
+            </Left>
+            <Body>
+              <Text>Security</Text>
+            </Body>
+            <Right>
+              <Icon active name="arrow-forward" />
+            </Right>
           </ListItem>
           <ListItem itemHeader>
             <Text>Recipes</Text>
           </ListItem>
-          <ListItem>
-            <Text>Preferences</Text>
+          <ListItem icon>
+            <Left>
+              <Button
+                style={{ backgroundColor: Colors.blue, borderRadius: "50%" }}
+              >
+                <Icon
+                  active
+                  name="setting"
+                  type="AntDesign"
+                  style={{ color: "white" }}
+                />
+              </Button>
+            </Left>
+            <Body>
+              <Text>Preferences</Text>
+            </Body>
+            <Right>
+              <Icon active name="arrow-forward" />
+            </Right>
           </ListItem>
-          <ListItem>
-            <Text>Favorites</Text>
+          <ListItem icon>
+            <Left>
+              <Button
+                style={{ backgroundColor: Colors.red, borderRadius: "50%" }}
+              >
+                <Icon
+                  active
+                  name="heart"
+                  type="AntDesign"
+                  style={{ color: "white" }}
+                />
+              </Button>
+            </Left>
+            <Body>
+              <Text>Favorites</Text>
+            </Body>
+            <Right>
+              <Icon active name="arrow-forward" />
+            </Right>
           </ListItem>
           <ListItem onPress={onRequestSignOut}>
             <Text>Sign Out</Text>
